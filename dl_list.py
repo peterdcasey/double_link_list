@@ -1,14 +1,16 @@
 class Node:
     def __init__(self,initdata):
-        self.data = initdata
+        self.__data = initdata
         self.next = None
         self.prev = None
 
-    def getData(self):
-        return self.data
+    @property
+    def data(self):
+        return self.__data
 
+    @data.setter
     def setData(self,newdata):
-        self.data = newdata
+        self.__data = newdata
 
     def setNext(self,newnext):
         self.next = newnext
@@ -61,7 +63,7 @@ class DL_List:
         size = self.size()
 
         while not found and counter < size:
-            if temp.getData() == item:
+            if temp.data == item:
                 found = True
             else:
                 counter += 1
@@ -75,7 +77,7 @@ class DL_List:
         out = []
 
         for i in range(self.size()):
-            out.append(temp.getData())
+            out.append(temp.data)
             temp = temp.getNext()
 
         return str(out)
