@@ -1,28 +1,32 @@
 class Node:
-    def __init__(self,initdata):
+    def __init__(self, initdata):
         self.__data = initdata
-        self.next = None
-        self.prev = None
+        self.__next = None
+        self.__prev = None
 
     @property
     def data(self):
         return self.__data
 
     @data.setter
-    def setData(self,newdata):
+    def data(self, newdata):
         self.__data = newdata
 
-    def setNext(self,newnext):
-        self.next = newnext
+    @property
+    def next(self):
+        return self.__next
 
-    def getNext(self):
-        return self.next
+    @next.setter
+    def next(self, newnext):
+        self.__next = newnext
 
-    def setPrev(self,newprev):
-        self.prev = newprev
+    @property
+    def prev(self):
+        return self.__prev
 
-    def getPrev(self):
-        return self.prev
+    @prev.setter
+    def prev(self,newprev):
+        self.__prev = newprev
 
 
 class DL_List:
@@ -42,14 +46,14 @@ class DL_List:
         temp = Node(item)
 
         if self.head == None:
-            temp.setNext(temp)
-            temp.setPrev(temp)
+            temp.next = temp
+            temp.prev = temp
             self.head = temp
         else:
-            temp.setPrev(self.head.getPrev())
-            temp.getPrev().setNext(temp)
-            temp.setNext(self.head)
-            self.head.setPrev(temp)
+            temp.prev = self.head.prev
+            temp.prev.next = temp
+            temp.next = self.head
+            self.head.prev = temp
 
         self.count += 1
 
@@ -67,7 +71,7 @@ class DL_List:
                 found = True
             else:
                 counter += 1
-                temp = temp.getNext()
+                temp = temp.next
 
         return found
 
@@ -78,7 +82,7 @@ class DL_List:
 
         for i in range(self.size()):
             out.append(temp.data)
-            temp = temp.getNext()
+            temp = temp.next
 
         return str(out)
 
@@ -92,3 +96,15 @@ class DL_List:
 
         return count
 """
+
+if __name__ == "__main__":
+    x = DL_List()
+    x.insert(10)
+    x.insert(20)
+    x.insert(-3)
+    x.insert(99)
+    print(x)
+    print(x.search(20))
+    print(x.search(99))
+    print(x.search(10))
+    print(x.search(44))
